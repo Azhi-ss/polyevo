@@ -1,0 +1,43 @@
+# Synthetic demo only: Mock outputs are deterministic numbers in [0, 1], not Tg/eps_r.
+seed: 42
+population_size: 24
+max_generations: 20
+budget: 2000
+domain:
+  name: polymer_linear
+  n_attachment: 2
+encoding:
+  name: fragment_seq
+  n_fragments: [2, 4]
+# RDKit BRICS label 16 can connect to 16; terminal ports become polymer '*'.
+library:
+  - '[16*]c1ccc([16*])cc1'
+  - '[16*]c1cc([16*])ccc1'
+  - '[16*]c1ccc([16*])c(C)c1'
+  - '[16*]c1cc([16*])cc(F)c1'
+  - '[16*]c1ccc([16*])c(Cl)c1'
+  - '[16*]c1cc([16*])cc(C#N)c1'
+predictors:
+  - {name: Mock, property: mock_a, batch_size: 32}
+  - {name: Mock, property: mock_b, batch_size: 32}
+objectives:
+  - {property: mock_a, direction: maximize, weight: 0.7, normalize: {minmax_fixed: [0, 1]}}
+  - {property: mock_b, direction: minimize, weight: 0.3, normalize: {minmax_fixed: [0, 1]}}
+select: {name: tournament, k: 3}
+reproduce:
+  name: family
+  families: 10
+  children: 4
+  crossover: brics_single_point
+  crossover_probability: 1.0
+  mutations:
+    - {name: substitute, probability: 0.25}
+    - {name: insert, probability: 0.08}
+    - {name: delete, probability: 0.08}
+    - {name: swap_order, probability: 0.08}
+structural_constraints:
+  - {property: MolWt, range: [60, 1500], on_fail: resample}
+aggregate: weighted_sum
+survive: {name: generational_elitist, ratio: 0.1, mode: replace}
+diversity: none
+stop: [max_generations, budget_exhausted]

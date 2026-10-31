@@ -1,0 +1,55 @@
+# GA-MMPolymer preset — paper-aligned configuration
+# Uses fragment_graph for multi-port BRICS assembly with real library from data/ga_mmpolymer/
+# Predictors are placeholders; replace with real MMPolymer predictor when available.
+
+seed: 42
+population_size: 40
+max_generations: 50
+max_attempts: 100
+budget: 10000
+
+domain:
+  name: polymer_linear
+  n_attachment: 2
+
+encoding:
+  name: fragment_graph
+  max_instances: 8
+
+library:
+  path: data/ga_mmpolymer/library.parquet
+
+predictors:
+  - {name: Mock, property: Tg, unit: "°C", batch_size: 64}
+  - {name: Mock, property: eps_r, batch_size: 64}
+  - {name: Mock, property: SA, batch_size: 64}
+
+objectives:
+  - {property: Tg, direction: maximize, weight: 0.50, normalize: minmax_pool}
+  - {property: eps_r, direction: minimize, weight: 0.35, normalize: minmax_pool}
+  - {property: SA, direction: minimize, weight: 0.15, normalize: minmax_pool}
+
+select:
+  name: tournament
+  k: 3
+
+reproduce:
+  name: family
+  families: 20
+  children: 6
+  crossover: subgraph_swap
+  crossover_probability: 1.0
+  mutations:
+    - {name: substitute_fragment, probability: 0.25}
+    - {name: insert_fragment, probability: 0.08}
+    - {name: remove_fragment, probability: 0.08}
+    - {name: rewire_edge, probability: 0.08}
+
+structural_constraints:
+  - {property: MolWt, range: [60, 1500], on_fail: resample}
+  - {smarts_forbidden: ["[N+](=O)[O-]"], on_fail: resample}
+
+aggregate: weighted_sum
+survive: {name: generational_elitist, ratio: 0.10, mode: replace}
+diversity: none
+stop: [max_generations, budget_exhausted]

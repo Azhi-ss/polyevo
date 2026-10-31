@@ -1,0 +1,44 @@
+{
+  "Tg": {
+    "input_rows": 7700,
+    "unparsable": 0,
+    "bad_attachment": 82,
+    "duplicate_groups": 25,
+    "duplicate_rows_removed": 26,
+    "conflicting_groups": 20,
+    "output_rows": 7587,
+    "label_min": -123.0,
+    "label_median": 137.0,
+    "label_max": 495.0,
+    "conflicting_groups_dropped": 5,
+    "manual_supplement": {
+      "rows": 1,
+      "detail": "*CC(*)C(CCCC)C(=O)O, 428.3837337 K -> 155.23 C",
+      "total_rows": 7749
+    }
+  },
+  "eps_r": {
+    "input_rows": 1075,
+    "unparsable": 0,
+    "bad_attachment": 0,
+    "duplicate_groups": 0,
+    "duplicate_rows_removed": 0,
+    "conflicting_groups": 0,
+    "output_rows": 1075,
+    "label_min": 1.6742,
+    "label_median": 2.7467,
+    "label_max": 130.7575,
+    "note": "以 /internfs/Zy/dataset/P1070/initial_data (1,075 行) 为准，补回 2 条氘代结构"
+  },
+  "Tg_supplement_kelvin": {
+    "source": "New Microsoft Excel 工作表.xlsx",
+    "input_rows": 382,
+    "unparsable": 1,
+    "bad_attachment": 0,
+    "implausible_dropped": 220,
+    "plausible_kept": 161,
+    "already_in_dataset": 0,
+    "added": 161,
+    "total_rows": 7748
+  }
+}

@@ -1,0 +1,4 @@
+psmiles,tg_raw_K,tg_C,plausible,source_note
+*N=P(N=P(N=S(*)(=O)NCCCC)(NCC)NCCC)(NCC=C)NCCC,1058.253771,785.1,no,Excel 第381行，已是本表内结构
+*N=P(N=P(N=S(*)(=O)NCC)(NCC)NCCC)(NCC)NCCCCCCC,1109.219487,836.07,no,用户新给，任何文件中都不存在
+*CC(*)C(CCCC)C(=O)O,428.3837337,155.23,yes,用户指定加入（K→℃），已并入 Tg.csv
